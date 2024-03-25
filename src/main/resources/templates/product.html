@@ -121,7 +121,7 @@
                                         <a th:href="@{/editproduct/{id}(id=${p.product_id})}" class="btn btn-sm btn-warning">
                                           <i class="far fa-edit"></i>
                                         </a>
-                                        <a th:href="@{/deleteproduct/{id}(id = ${p.product_id})}" class="btn btn-sm btn-danger">
+                                        <a th:href="@{/deleteproduct/{id}(id = ${p.product_id})}" class="btn btn-sm btn-danger" onclick="return confirm('คุณต้องการลบรายการนี้ใช่หรือไม่')">
                                           <i class="fas fa-trash"></i>
                                         </a>
                                     </td>

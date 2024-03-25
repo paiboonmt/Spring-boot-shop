@@ -23,7 +23,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="/" class="brand-link">
-      <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">TN SHOP</span>
     </a>
 
@@ -43,7 +43,7 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="/" class="nav-link active">
+            <a href="/" class="nav-link">
               <i class="nav-icon fas fa-home"></i>
               <p>
                 หน้าร้าน
@@ -59,7 +59,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="promotion" class="nav-link">
+            <a href="promotion" class="nav-link active">
               <i class="nav-icon fas fa-theater-masks"></i>
               <p>
                 โปรโมชั่น
@@ -88,36 +88,50 @@
   </aside>
 
   <div class="content-wrapper">
-
     <section class="content">
       <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-8">
-              <div class="card mt-3 p-2">
-                <div class="card-header">
-                  <h4>Product List</h3>
+        <!-- <div class="row">
+            <div class="col-md-12">
+                <div class="card p-2 mt-2">
+                    <div class="card-header">
+                        <a class="btn btn-sm btn-primary"  href="addproduct" >Add Product</a>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Product ID</th>
+                                <th scope="col">Product name</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Description</th>
+                                <th scope="col" class="text-center">
+                                    Action
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each = "p: ${product}">
+                                    <td th:text="${p.product_id}"></td>
+                                    <td th:text="${p.product_name}"></td>
+                                    <td th:text="${p.price}"></td>
+                                    <td th:text="${p.quantity}"></td>
+                                    <td th:text="${p.detail}"></td>
+                                    <td class="text-center">
+                                        <a th:href="@{/editproduct/{id}(id=${p.product_id})}" class="btn btn-sm btn-warning">
+                                          <i class="far fa-edit"></i>
+                                        </a>
+                                        <a th:href="@{/deleteproduct/{id}(id = ${p.product_id})}" class="btn btn-sm btn-danger" onclick="return confirm('คุณต้องการลบรายการนี้ใช่หรือไม่')">
+                                          <i class="fas fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="card-body">
-                  <table class="table">
-                      <thead>
-                        <tr>
-                          <th>Product name</th>
-                          <th>Pricr</th>
-                          <th>Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <form action="" method="post">
-                          <tr >
-
-                          </tr>
-                        </form>
-                      </tbody>
-                  </table>
-                </div>
-              </div>
             </div>
-          </div>
+        </div> -->
       </div>
     </section>
 
