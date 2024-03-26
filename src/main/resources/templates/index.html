@@ -4,7 +4,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TN SHOP</title>
-
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -13,8 +12,6 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
-
-
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -95,7 +92,7 @@
             <div class="col-md-8">
               <div class="card mt-3 p-2">
                 <div class="card-header">
-                  <h4>Product List</h3>
+                  <h4>Product List</h4>
                 </div>
                 <div class="card-body">
                   <table class="table">
@@ -103,15 +100,46 @@
                         <tr>
                           <th>Product name</th>
                           <th>Pricr</th>
-                          <th>Action</th>
+                          <th>quantity</th>
+                          <th class="text-center">Cart</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <form action="" method="post">
-                          <tr >
+                        <tr th:each = "p: ${product}">
+                          <td th:text="${p.product_name}"></td>
+                          <td th:text="${p.price}"></td>
+                          <td th:text="${p.quantity}"></td>
+                          <td class="text-center">
+<!--                            <a th:href="@{/cart/{product_id}(product_id=${p.product_id})}" class="btn btn-secondary">-->
+<!--                              <i class="fas fa-cart-plus"></i>-->
+<!--                            </a>-->
+                            <button type="button" class="btn btn-primary" data-toggle="modal" th:data-target=" '#id' + ${p.product_id}">
+                              <i class="fas fa-cart-plus"></i>
+                            </button>
+                          </td>
 
-                          </tr>
-                        </form>
+                          <!-- Modal -->
+                          <div class="modal fade" th:id="'id'+${p.product_id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel"> <th:block th:text="${p.product_name}"></th:block> </h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  ...
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  <button type="button" class="btn btn-primary">เพื่มสินค้่าในตะกร้า</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                        </tr>
                       </tbody>
                   </table>
                 </div>

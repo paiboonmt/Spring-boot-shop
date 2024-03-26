@@ -16,7 +16,6 @@ import com.shop.service.ProductService;
 @Controller
 public class ProductController {
 
-    
     @Autowired
     private ProductService service;
 
