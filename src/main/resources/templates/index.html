@@ -89,7 +89,7 @@
     <section class="content">
       <div class="container-fluid">
           <div class="row">
-            <div class="col-md-8 mx-auto">
+            <div class="col-md-8">
               <div class="card mt-3 p-2">
                 <div class="card-header bg-dark">
                   <h4>Product List</h4>
@@ -127,13 +127,15 @@
                                 </div>
                                 <div class="modal-body">
 
-                                  <form action="" method="post">
+                                  <form th:action="@{/addtocart}" method="post" th:object="${product}">
 
                                     <div class="input-group mb-3">
                                       <div class="input-group-prepend">
                                         <span class="input-group-text">Price</span>
                                       </div>
                                       <input type="text" class="form-control" name="price" th:value="${p.price}">
+                                      <input type="text" hidden="hidden" name="product_name" th:value="${p.product_name}">
+                                      <input type="text" hidden="hidden" name="product_id" th:value="${p.product_id}">
                                     </div>
 
                                     <div class="input-group mb-3">
@@ -142,19 +144,55 @@
                                       </div>
                                       <input type="number" class="form-control" name="quantity" th:value="1">
                                     </div>
-
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                      <input type="submit" class="btn btn-primary" th:value="เพื่มสินค้่าในตะกร้า">
+                                    </div>
                                   </form>
+
                                 </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                                  <button type="button" class="btn btn-primary">เพื่มสินค้่าในตะกร้า</button>
-                                </div>
+
+
                               </div>
                             </div>
                           </div>
 
                         </tr>
                       </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mt-3 p-2">
+              <div class="card">
+                <div class="card-body">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Product</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <form action="" method="post">
+                        <tr th:each=" c : ${cart}">
+                          <td th:text="${c.product_name}"></td>
+                          <td th:text="${c.quantity}"></td>
+                          <td th:text="${c.price}"></td>
+                        </tr>
+
+
+                        <tr>
+                          <td colspan="3">
+                            <input type="submit" value="ชำระเงิน">
+                          </td>
+                        </tr>
+
+
+
+                      </form>
+                    </tbody>
                   </table>
                 </div>
               </div>
@@ -166,11 +204,11 @@
   </div>
 </div>
 
-<script src="plugins/jquery/jquery.min.js"></script>
+<script src="/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="dist/js/adminlte.js"></script>
+<script src="/dist/js/adminlte.js"></script>
 
 </body>
 </html>

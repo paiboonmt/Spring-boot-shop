@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class CartController {
@@ -17,7 +18,15 @@ public class CartController {
     @Autowired
     private ProductService service;
 
+    @Autowired
     private CartService cartService;
+
+    @PostMapping("/addtocart")
+    public String addToCart(@ModelAttribute Cart cart ){
+        System.out.println(cart);
+        cartService.addCart(cart);
+        return "redirect:/";
+    }
 
     @GetMapping("/cart/{product_id}")
     public String addcart(@PathVariable int product_id , Model model ){
@@ -25,5 +34,7 @@ public class CartController {
         model.addAttribute("product" , product);
         return "cart";
     }
+
+
     
 }
