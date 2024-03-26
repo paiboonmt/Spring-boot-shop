@@ -89,9 +89,9 @@
     <section class="content">
       <div class="container-fluid">
           <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-8 mx-auto">
               <div class="card mt-3 p-2">
-                <div class="card-header">
+                <div class="card-header bg-dark">
                   <h4>Product List</h4>
                 </div>
                 <div class="card-body">
@@ -110,15 +110,12 @@
                           <td th:text="${p.price}"></td>
                           <td th:text="${p.quantity}"></td>
                           <td class="text-center">
-<!--                            <a th:href="@{/cart/{product_id}(product_id=${p.product_id})}" class="btn btn-secondary">-->
-<!--                              <i class="fas fa-cart-plus"></i>-->
-<!--                            </a>-->
                             <button type="button" class="btn btn-primary" data-toggle="modal" th:data-target=" '#id' + ${p.product_id}">
                               <i class="fas fa-cart-plus"></i>
                             </button>
                           </td>
 
-                          <!-- Modal -->
+                          <!-- Modal Cart -->
                           <div class="modal fade" th:id="'id'+${p.product_id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                               <div class="modal-content">
@@ -129,16 +126,33 @@
                                   </button>
                                 </div>
                                 <div class="modal-body">
-                                  ...
+
+                                  <form action="" method="post">
+
+                                    <div class="input-group mb-3">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">Price</span>
+                                      </div>
+                                      <input type="text" class="form-control" name="price" th:value="${p.price}">
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">Quantity</span>
+                                      </div>
+                                      <input type="number" class="form-control" name="quantity" th:value="1">
+                                    </div>
+
+                                  </form>
                                 </div>
                                 <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
                                   <button type="button" class="btn btn-primary">เพื่มสินค้่าในตะกร้า</button>
                                 </div>
                               </div>
                             </div>
                           </div>
-                          
+
                         </tr>
                       </tbody>
                   </table>
