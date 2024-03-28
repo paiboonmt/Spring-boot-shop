@@ -7,11 +7,11 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="/https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="/dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -175,20 +175,20 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <form action="" method="post">
+                      <form th:action="@{/postaddtocart}" method="post">
                         <tr th:each=" c : ${cart}">
                           <td th:text="${c.product_name}"></td>
                           <td th:text="${c.quantity}"></td>
                           <td th:text="${c.price}"></td>
+
+                          <input type="text" name="product_id" th:value="${c.product_name}">
+
                         </tr>
-
-
                         <tr>
                           <td colspan="3">
-                            <input type="submit" value="ชำระเงิน">
+                            <input type="submit" class="btn btn-success form-control" value="ชำระเงิน">
                           </td>
                         </tr>
-
 
 
                       </form>

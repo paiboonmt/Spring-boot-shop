@@ -21,6 +21,8 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
+
+
     @PostMapping("/addtocart")
     public String addToCart(@ModelAttribute Cart cart ){
         System.out.println(cart);
@@ -34,7 +36,6 @@ public class CartController {
         model.addAttribute("product" , product);
         return "cart";
     }
-
 
     
 }
