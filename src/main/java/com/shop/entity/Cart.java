@@ -4,37 +4,22 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "cart")
+
 public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private int product_id;
     private String product_name;
     private int quantity;
     private Double price;
 
-
-    public Cart() {
-        super();
-    }
-
-    @Override
-    public String toString() {
-        return "Cart{" +
-                "id=" + id +
-                ", product_id=" + product_id +
-                ", product_name='" + product_name + '\'' +
-                ", quantity=" + quantity +
-                ", price=" + price +
-                '}';
-    }
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -9,7 +9,7 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="/https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="/dist/css/adminlte.min.css">
 </head>
@@ -85,119 +85,120 @@
   </aside>
 
   <div class="content-wrapper">
-
     <section class="content">
       <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-8">
-              <div class="card mt-3 p-2">
-                <div class="card-header bg-dark">
-                  <h4>Product List</h4>
-                </div>
-                <div class="card-body">
-                  <table class="table">
-                      <thead>
-                        <tr>
-                          <th>Product name</th>
-                          <th>Pricr</th>
-                          <th>quantity</th>
-                          <th class="text-center">Cart</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr th:each = "p: ${product}">
-                          <td th:text="${p.product_name}"></td>
-                          <td th:text="${p.price}"></td>
-                          <td th:text="${p.quantity}"></td>
-                          <td class="text-center">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" th:data-target=" '#id' + ${p.product_id}">
-                              <i class="fas fa-cart-plus"></i>
-                            </button>
-                          </td>
+        <div class="row">
 
-                          <!-- Modal Cart -->
-                          <div class="modal fade" th:id="'id'+${p.product_id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel"> <th:block th:text="${p.product_name}"></th:block> </h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                                </div>
-                                <div class="modal-body">
-
-                                  <form th:action="@{/addtocart}" method="post" th:object="${product}">
-
-                                    <div class="input-group mb-3">
-                                      <div class="input-group-prepend">
-                                        <span class="input-group-text">Price</span>
-                                      </div>
-                                      <input type="text" class="form-control" name="price" th:value="${p.price}">
-                                      <input type="text" hidden="hidden" name="product_name" th:value="${p.product_name}">
-                                      <input type="text" hidden="hidden" name="product_id" th:value="${p.product_id}">
-                                    </div>
-
-                                    <div class="input-group mb-3">
-                                      <div class="input-group-prepend">
-                                        <span class="input-group-text">Quantity</span>
-                                      </div>
-                                      <input type="number" class="form-control" name="quantity" th:value="1">
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                                      <input type="submit" class="btn btn-primary" th:value="เพื่มสินค้่าในตะกร้า">
-                                    </div>
-                                  </form>
-
-                                </div>
-
-
-                              </div>
-                            </div>
-                          </div>
-
-                        </tr>
-                      </tbody>
-                  </table>
-                </div>
+          <div class="col-md-7">
+            <div class="card mt-3 p-2">
+              <div class="card-header bg-dark">
+                <h4>Product List</h4>
               </div>
-            </div>
-            <div class="col-md-4 mt-3 p-2">
-              <div class="card">
-                <div class="card-body">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>Product</th>
-                        <th>Qty</th>
-                        <th>Price</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <form th:action="@{/postaddtocart}" method="post">
-                        <tr th:each=" c : ${cart}">
-                          <td th:text="${c.product_name}"></td>
-                          <td th:text="${c.quantity}"></td>
-                          <td th:text="${c.price}"></td>
+              <div class="card-body">
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th>Product name</th>
+                    <th>Pricr</th>
+                    <th>quantity</th>
+                    <th class="text-center">Cart</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr th:each = "p: ${product}">
+                    <td th:text="${p.product_name}"></td>
+                    <td th:text="${p.price}"></td>
+                    <td th:text="${p.quantity}"></td>
+                    <td class="text-center">
+                      <button type="button" class="btn btn-primary" data-toggle="modal" th:data-target=" '#id' + ${p.product_id}">
+                        <i class="fas fa-cart-plus"></i>
+                      </button>
+                    </td>
 
-                          <input type="text" name="product_id" th:value="${c.product_name}">
+                    <!-- Modal Cart -->
+                    <div class="modal fade" th:id="'id'+${p.product_id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header text-center">
+                            <h5 class="modal-title" id="exampleModalLabel"> <th:block th:text="${p.product_name}"></th:block> </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
 
-                        </tr>
-                        <tr>
-                          <td colspan="3">
-                            <input type="submit" class="btn btn-success form-control" value="ชำระเงิน">
-                          </td>
-                        </tr>
+                            <!-- CartController-->
+                            <form th:action="@{/addtocart}" method="post" th:object="${product}">
 
+                              <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">Price</span>
+                                </div>
+                                <input type="text" class="form-control" name="price" th:value="${p.price}">
+                                <input type="text" hidden="hidden" name="product_name" th:value="${p.product_name}">
+                                <input type="text" hidden="hidden" name="product_id" th:value="${p.product_id}">
+                                <input type="text" hidden="hidden" name="product_quantity" th:value="${quantity}">
+                                <input type="text" hidden="hidden" name="userid" th:value="admin">
+                              </div>
 
-                      </form>
-                    </tbody>
-                  </table>
-                </div>
+                              <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">Quantity</span>
+                                </div>
+                                <input type="number" class="form-control" name="quantity" th:value="1">
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                <input type="submit" class="btn btn-primary" th:value="เพื่มสินค้่าในตะกร้า">
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
+
+          <div class="col-md-5 mt-2 p-2">
+              <div class="card">
+                  <div class="card-header bg-cyan">
+                    <h3>cart</h3>
+                  </div>
+                <div class="card-body">
+                  <form action="" method="post">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th>ลำดับ</th>
+                            <th>รายการ</th>
+                            <th>จำนวน</th>
+                            <th>ราคา</th>
+                          </tr>
+                        </thead>
+                      <tbody>
+                        <tr th:each=" c : ${cart}">
+                          <td th:text="${cStat.count}"></td>
+                          <td th:text="${c.product_name}"></td>
+                          <td th:text="${c.quantity}"></td>
+                          <td th:text="${c.price}"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="form-group">
+                      <input type="submit" class="form-control btn btn-success" name="Confirm" th:value="BUY">
+                    </div>
+                  </form>
+
+
+
+                </div>
+              </div>
+          </div>
+        </div>
       </div>
     </section>
 

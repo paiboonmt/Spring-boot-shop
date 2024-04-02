@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TN SHOP</title>
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="/" class="brand-link">
+      <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">TN SHOP</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">Paiboon Y</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item">
+            <a href="/" class="nav-link active">
+              <i class="nav-icon fas fa-home"></i>
+              <p>
+                หน้าร้าน
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="product" class="nav-link">
+              <i class="nav-icon fab fa-product-hunt"></i>
+              <p>
+                จัดการ สินค้า
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="promotion" class="nav-link">
+              <i class="nav-icon fas fa-theater-masks"></i>
+              <p>
+                โปรโมชั่น
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="report" class="nav-link">
+              <i class="nav-icon fas fa-print"></i>
+              <p>
+                รายงานการขาย
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="logout" class="nav-link">
+              <i class="nav-icon fas fa-sign-out-alt"></i>
+              <p>
+                ออก
+              </p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+  <div class="content-wrapper">
+    <section class="content">
+      <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card mt-3 p-2">
+                <div class="card-header bg-dark">
+                  <h4>Product List</h4>
+                </div>
+                <div class="card-body">
+                  <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Product name</th>
+                          <th>Pricr</th>
+                          <th>quantity</th>
+                          <th class="text-center">Cart</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr th:each = "p: ${product}">
+                          <td th:text="${p.product_name}"></td>
+                          <td th:text="${p.price}"></td>
+                          <td th:text="${p.quantity}"></td>
+                          <td class="text-center">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" th:data-target=" '#id' + ${p.product_id}">
+                              <i class="fas fa-cart-plus"></i>
+                            </button>
+                          </td>
+
+                          <!-- Modal Cart -->
+                          <div class="modal fade" th:id="'id'+${p.product_id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel"> <th:block th:text="${p.product_name}"></th:block> </h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+
+                                  <!-- CartController-->
+                                  <form th:action="@{/addtocart}" method="post" th:object="${product}">
+
+                                    <div class="input-group mb-3">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">Price</span>
+                                      </div>
+                                      <input type="text" class="form-control" name="price" th:value="${p.price}">
+                                      <input type="text" hidden="hidden" name="product_name" th:value="${p.product_name}">
+                                      <input type="text" hidden="hidden" name="product_id" th:value="${p.product_id}">
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">Quantity</span>
+                                      </div>
+                                      <input type="number" class="form-control" name="quantity" th:value="1">
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                      <input type="submit" class="btn btn-primary" th:value="เพื่มสินค้่าในตะกร้า">
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </tr>
+                      </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script src="/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/dist/js/adminlte.js"></script>
+
+</body>
+</html>

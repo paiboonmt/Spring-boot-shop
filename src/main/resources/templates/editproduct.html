@@ -51,7 +51,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="product" class="nav-link active">
+            <a href="/product" class="nav-link active">
               <i class="nav-icon fab fa-product-hunt"></i>
               <p>
                 จัดการ สินค้า
@@ -105,7 +105,7 @@
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">ราคา</span>
-                                <input type="number" name="price" th:value="${product.price}" class="form-control">
+                                <input type="number" step = "0.01" name="price" th:value="${product.price}" class="form-control">
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">รายละเอียดสินค้า</span>

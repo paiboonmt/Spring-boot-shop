@@ -16,7 +16,6 @@ public class ProductService {
 
     @SuppressWarnings("null")
     public void addProduct(Product product) {
-
         repo.save(product);
     }
 
@@ -26,10 +25,7 @@ public class ProductService {
 
     public Product getProductById( int id){
         Optional<Product> product = repo.findById(id);
-        if ( product.isPresent()) {
-            return product.get();
-        }
-        return null;
+        return product.orElse(null);
     }
 
     public void deleteById( int id){

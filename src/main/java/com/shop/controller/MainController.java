@@ -22,11 +22,13 @@ public class MainController {
     private CartService cartService;
 
     @GetMapping("/")
-    public String home( Model model) {
+    public String home( Model model ) {
         List<Product> products = productService.allProduct();
         model.addAttribute("product" , products);
         List<Cart> carts = cartService.carts();
         model.addAttribute("cart" , carts );
+//        int count = 1 ;
+//        model.addAttribute("count" , count);
         return  "index";
     }
 

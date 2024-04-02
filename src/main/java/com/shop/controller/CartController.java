@@ -7,10 +7,7 @@ import com.shop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class CartController {
@@ -21,12 +18,17 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
-
-
     @PostMapping("/addtocart")
-    public String addToCart(@ModelAttribute Cart cart ){
-        System.out.println(cart);
-        cartService.addCart(cart);
+    public String addItemTocart(@RequestParam Integer product_id ,
+                                @RequestParam int quantity ,
+                                @RequestParam String product_name ,
+                                @RequestParam double price ,
+                                Model model )
+    {
+        System.out.println();
+
+        cartService.addToItemCart( product_id , quantity , product_name , price);
+        model.addAttribute("msg" , "เพื่มสินค้าสำเร็จ");
         return "redirect:/";
     }
 
