@@ -168,8 +168,9 @@
                   <div class="card-header bg-cyan">
                     <h3>cart</h3>
                   </div>
+                <a th:href="@{/removeorder}" class="btn btn-danger"> REMOVE </a>
                 <div class="card-body">
-                  <form action="" method="post">
+                  <form th:action="@{/confirmOrder}" method="post">
                     <table class="table">
                         <thead>
                           <tr>
@@ -179,14 +180,14 @@
                             <th>ราคา</th>
                           </tr>
                         </thead>
-                      <tbody>
-                        <tr th:each=" c : ${cart}">
-                          <td th:text="${cStat.count}"></td>
-                          <td th:text="${c.product_name}"></td>
-                          <td th:text="${c.quantity}"></td>
-                          <td th:text="${c.price}"></td>
-                        </tr>
-                      </tbody>
+<!--                      <tbody>-->
+<!--                        <tr th:each=" c : ${cart}">-->
+<!--                          <td th:text="${cStat.count}"></td>-->
+<!--                          <td th:text="${c.product_name}"></td>-->
+<!--                          <td th:text="${c.quantity}"></td>-->
+<!--                          <td th:text="${c.price}"></td>-->
+<!--                        </tr>-->
+<!--                      </tbody>-->
                     </table>
                     <div class="form-group">
                       <input type="submit" class="form-control btn btn-success" name="Confirm" th:value="BUY">
