@@ -14,7 +14,6 @@ public class ProductService {
     @Autowired
     private ProductRepo repo;
 
-    @SuppressWarnings("null")
     public void addProduct(Product product) {
         repo.save(product);
     }

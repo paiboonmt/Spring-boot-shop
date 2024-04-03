@@ -110,52 +110,9 @@
                     <td th:text="${p.price}"></td>
                     <td th:text="${p.quantity}"></td>
                     <td class="text-center">
-                      <button type="button" class="btn btn-primary" data-toggle="modal" th:data-target=" '#id' + ${p.product_id}">
-                        <i class="fas fa-cart-plus"></i>
-                      </button>
+                      <a th:href="@{/addtocart}" class="btn btn-success"></a>
                     </td>
 
-                    <!-- Modal Cart -->
-                    <div class="modal fade" th:id="'id'+${p.product_id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header text-center">
-                            <h5 class="modal-title" id="exampleModalLabel"> <th:block th:text="${p.product_name}"></th:block> </h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-
-                            <!-- CartController-->
-                            <form th:action="@{/addtocart}" method="post" th:object="${product}">
-
-                              <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">Price</span>
-                                </div>
-                                <input type="text" class="form-control" name="price" th:value="${p.price}">
-                                <input type="text" hidden="hidden" name="product_name" th:value="${p.product_name}">
-                                <input type="text" hidden="hidden" name="product_id" th:value="${p.product_id}">
-                                <input type="text" hidden="hidden" name="product_quantity" th:value="${quantity}">
-                                <input type="text" hidden="hidden" name="userid" th:value="admin">
-                              </div>
-
-                              <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">Quantity</span>
-                                </div>
-                                <input type="number" class="form-control" name="quantity" th:value="1">
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                                <input type="submit" class="btn btn-primary" th:value="เพื่มสินค้่าในตะกร้า">
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </tr>
                   </tbody>
                 </table>
