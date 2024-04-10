@@ -14,19 +14,23 @@ public class ProductService {
     @Autowired
     private ProductRepo repo;
 
+    // บันทึกสินค้า
     public void addProduct(Product product) {
         repo.save(product);
     }
 
+    // แสดงสินค้าทั้งหมด
     public List<Product> allProduct() {
         return repo.findAll();
     }
 
+    // ค้นหาสินค้าด้วย ไอดี
     public Product getProductById( int id){
         Optional<Product> product = repo.findById(id);
         return product.orElse(null);
     }
 
+    // ลบสินค้า
     public void deleteById( int id){
         repo.deleteById(id);
     }

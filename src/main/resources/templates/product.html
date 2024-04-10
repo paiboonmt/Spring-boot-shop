@@ -1,91 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TN SHOP</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="/images/logo.png">
+    <title>Product Page | TNN SHOP</title>
 
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
-
+    <div th:replace="/fragments/header :: header"></div>
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="/" class="brand-link">
-      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">TN SHOP</span>
-    </a>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">Paiboon Y</a>
-        </div>
-      </div>
-
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item">
-            <a href="/" class="nav-link">
-              <i class="nav-icon fas fa-home"></i>
-              <p>
-                หน้าร้าน
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="product" class="nav-link active">
-              <i class="nav-icon fab fa-product-hunt"></i>
-              <p>
-                จัดการ สินค้า
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="promotion" class="nav-link">
-              <i class="nav-icon fas fa-theater-masks"></i>
-              <p>
-                โปรโมชั่น
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="report" class="nav-link">
-              <i class="nav-icon fas fa-print"></i>
-              <p>
-                รายงานการขาย
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="logout" class="nav-link">
-              <i class="nav-icon fas fa-sign-out-alt"></i>
-              <p>
-                ออก
-              </p>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </aside>
+    <div th:replace="/fragments/aside :: aside"></div>
 
   <div class="content-wrapper">
     <section class="content">
@@ -94,10 +22,10 @@
             <div class="col-md-12">
                 <div class="card p-2 mt-2">
                     <div class="card-header">
-                        <a class="btn btn-sm btn-primary"  href="addproduct" >Add Product</a>
+                        <a class="btn btn-primary"  th:href="@{/product/addproduct}" >Add Product</a>
                     </div>
                     <div class="card-body">
-                        <table class="table">
+                        <table class="table" id="example1">
                             <thead>
                             <tr>
                                 <th scope="col">Product ID</th>
@@ -112,19 +40,63 @@
                             </thead>
                             <tbody>
                                 <tr th:each = "p: ${product}">
-                                    <td th:text="${p.product_id}"></td>
-                                    <td th:text="${p.product_name}"></td>
+                                    <td th:text="${p.id}"></td>
+                                    <td th:text="${p.name}"></td>
                                     <td th:text="${p.price}"></td>
                                     <td th:text="${p.quantity}"></td>
                                     <td th:text="${p.detail}"></td>
                                     <td class="text-center">
-                                        <a th:href="@{/editproduct/{id}(id=${p.product_id})}" class="btn btn-sm btn-warning">
-                                          <i class="far fa-edit"></i>
-                                        </a>
-                                        <a th:href="@{/deleteproduct/{id}(id = ${p.product_id})}" class="btn btn-sm btn-danger" onclick="return confirm('คุณต้องการลบรายการนี้ใช่หรือไม่')">
+                                        <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" th:attr="data-target='#id' + ${p.id}">
+                                            <i class="far fa-edit"></i>
+                                        </button>
+                                        <a th:href="@{/product/deleteproduct/{id}(id = ${p.id})}" class="btn btn-sm btn-danger" onclick="return confirm('คุณต้องการลบรายการนี้ใช่หรือไม่')">
                                           <i class="fas fa-trash"></i>
                                         </a>
                                     </td>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" th:id="'id' + ${p.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form th:action="@{/product/updateproduct}" method="POST" th:object="${product}">
+                                                        <div class="input-group mb-3">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">ชื่อสินค้า</span>
+                                                            </div>
+                                                            <input type="text" name="name" class="form-control" th:value="${p.name}">
+                                                        </div>
+                                                        <div class="input-group mb-3">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">ราคา</span>
+                                                            </div>
+                                                            <input type="number" step = "0.01" name="price" class="form-control" th:value="${p.price}">
+                                                        </div>
+                                                        <div class="input-group mb-3">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">รายละเอียดสินค้า</span>
+                                                            </div>
+                                                            <input type="text" name="detail" class="form-control" th:value="${p.detail}">
+                                                        </div>
+                                                        <div class="input-group mb-3">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">จำนวนสินค้า : </span>
+                                                            </div>
+                                                            <input type="number" name="quantity" class="form-control" th:value="${p.quantity}">
+                                                        </div>
+                                                        <input type="number" hidden="" name="id" class="form-control" th:value="${p.id}">
+                                                        <input type="submit" class="btn btn-sm btn-primary col-12" value="บันทึกข้อมูล">
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </tr>
                             </tbody>
                         </table>
@@ -136,13 +108,40 @@
     </section>
 
   </div>
+
 </div>
 
-<script src="plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.js"></script>
+<div th:replace="/fragments/footer :: footer"></div>
+
+<script>
+    $(function () {
+        $("#example1").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": true,
+            "buttons": ["excel"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });
+</script>
+
+
+<div th:if="${session.msg}">
+    <script>
+        Swal.fire({
+            title: "Good job!",
+            text: "Update Product Successfully",
+            icon: "success"
+        });
+    </script>
+</div>
+
 
 </body>
 </html>

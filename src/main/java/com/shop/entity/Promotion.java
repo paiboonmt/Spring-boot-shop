@@ -3,20 +3,25 @@ package com.shop.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "product")
-public class Product {
+@Table(name = "promotion")
+public class Promotion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private Double price;
-    private String detail;
-    private int quantity;
 
-    public Product() {
+    public Promotion() {
         super();
     }
+
+    public Promotion(int id, String name, Double price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
 
     public int getId() {
         return id;
@@ -42,19 +47,4 @@ public class Product {
         this.price = price;
     }
 
-    public String getDetail() {
-        return detail;
-    }
-
-    public void setDetail(String detail) {
-        this.detail = detail;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 }

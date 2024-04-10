@@ -2,6 +2,7 @@ package com.shop.controller;
 
 import java.util.List;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,10 +13,20 @@ import com.shop.service.ProductService;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
+@RequestMapping("/product")
 public class ProductController {
 
     @Autowired
     private ProductService service;
+
+//    http://localhost:1010/product
+    @GetMapping
+    public String product( Model model){
+        List<Product> products = service.allProduct();
+        model.addAttribute("product" , products);
+        model.addAttribute("currentUrl", "/product");
+        return "product";
+    }
 
     @GetMapping("/deleteproduct/{id}")
     public String deleteProduct(@PathVariable int id){
@@ -24,8 +35,9 @@ public class ProductController {
     }
 
     @PostMapping("/updateproduct")
-    public String updateProduct(@ModelAttribute Product product){
+    public String updateProduct(@ModelAttribute Product product , HttpSession session){
         service.addProduct(product);
+        session.setAttribute("msg", "Update Product Successfully");
         return "redirect:/product";
     }
 
@@ -37,16 +49,13 @@ public class ProductController {
         return "editproduct";
     }
 
-    @GetMapping("/product")
-    public String product( Model model){
-        List<Product> products = service.allProduct();
-        model.addAttribute("product" , products);
-        return "product";
-    }
     @GetMapping("/addproduct")
-    public String addProduct(){
+    public String addProduct(Model model){
+        model.addAttribute("currentUrl", "/product");
         return "addproduct";
     }
+
+
     @PostMapping("/addProduct")
     public String insertProduct(@ModelAttribute Product product) {
         service.addProduct(product);

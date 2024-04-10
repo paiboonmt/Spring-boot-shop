@@ -1,118 +1,52 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TN SHOP</title>
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+    <title>TNN SHOP</title>
+
+    <div th:replace="/fragments/header :: header"></div>
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="/" class="brand-link">
-      <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">TN SHOP</span>
-    </a>
+  <div th:replace="/fragments/aside :: aside"></div>
+  <!-- Main Sidebar Container -->
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">Paiboon Y</a>
-        </div>
-      </div>
 
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item">
-            <a href="/" class="nav-link active">
-              <i class="nav-icon fas fa-home"></i>
-              <p>
-                หน้าร้าน
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="product" class="nav-link">
-              <i class="nav-icon fab fa-product-hunt"></i>
-              <p>
-                จัดการ สินค้า
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="promotion" class="nav-link">
-              <i class="nav-icon fas fa-theater-masks"></i>
-              <p>
-                โปรโมชั่น
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="report" class="nav-link">
-              <i class="nav-icon fas fa-print"></i>
-              <p>
-                รายงานการขาย
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="logout" class="nav-link">
-              <i class="nav-icon fas fa-sign-out-alt"></i>
-              <p>
-                ออก
-              </p>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </aside>
 
+  <!-- content-wrapper  -->
   <div class="content-wrapper">
     <section class="content">
       <div class="container-fluid">
         <div class="row">
 
-          <div class="col-md-7">
-            <div class="card mt-3 p-2">
-              <div class="card-header bg-dark">
-                <h4>Product List</h4>
-              </div>
+          <div class="col-md-10 mx-auto p-3">
+            <div class="card">
               <div class="card-body">
-                <table class="table">
+                <table class="table" id="example1">
                   <thead>
                   <tr>
-                    <th>Product name</th>
-                    <th>Pricr</th>
-                    <th>quantity</th>
-                    <th class="text-center">Cart</th>
+                    <th scope="col">Product name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col" class="text-center">
+                      Add To Cart
+                    </th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr th:each = "p: ${product}">
-                    <td th:text="${p.product_name}"></td>
+                  <tr th:each = "p: ${products}">
+                    <td th:text="${p.name}"></td>
                     <td th:text="${p.price}"></td>
                     <td th:text="${p.quantity}"></td>
                     <td class="text-center">
-                      <a th:href="@{/addtocart}" class="btn btn-success"></a>
+                      <a th:href="@{/cart/additem/{id}(id = ${p.id})}" class="btn btn-sm btn-info" >
+                        <i class="fas fa-cart-plus"> | Add</i>
+                      </a>
                     </td>
-
                   </tr>
                   </tbody>
                 </table>
@@ -120,54 +54,25 @@
             </div>
           </div>
 
-          <div class="col-md-5 mt-2 p-2">
-              <div class="card">
-                  <div class="card-header bg-cyan">
-                    <h3>cart</h3>
-                  </div>
-                <a th:href="@{/removeorder}" class="btn btn-danger"> REMOVE </a>
-                <div class="card-body">
-                  <form th:action="@{/confirmOrder}" method="post">
-                    <table class="table">
-                        <thead>
-                          <tr>
-                            <th>ลำดับ</th>
-                            <th>รายการ</th>
-                            <th>จำนวน</th>
-                            <th>ราคา</th>
-                          </tr>
-                        </thead>
-<!--                      <tbody>-->
-<!--                        <tr th:each=" c : ${cart}">-->
-<!--                          <td th:text="${cStat.count}"></td>-->
-<!--                          <td th:text="${c.product_name}"></td>-->
-<!--                          <td th:text="${c.quantity}"></td>-->
-<!--                          <td th:text="${c.price}"></td>-->
-<!--                        </tr>-->
-<!--                      </tbody>-->
-                    </table>
-                    <div class="form-group">
-                      <input type="submit" class="form-control btn btn-success" name="Confirm" th:value="BUY">
-                    </div>
-                  </form>
-
-
-
-                </div>
-              </div>
-          </div>
         </div>
       </div>
     </section>
 
   </div>
+  <!-- content-wrapper  -->
+
+
 </div>
 
-<script src="/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="/dist/js/adminlte.js"></script>
+<div th:replace="/fragments/footer :: footer"></div>
+
+<script>
+  $(function () {
+    $("#example1").DataTable({
+
+    });
+  });
+</script>
 
 </body>
 </html>
