@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.shop.entity.Product;
 import com.shop.service.ProductService;
-import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/product")
