@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="/images/logo.png">
     <title>TNN SHOP</title>
 
     <div th:replace="/fragments/header :: header"></div>
@@ -15,41 +16,27 @@
   <div th:replace="/fragments/aside :: aside"></div>
   <!-- Main Sidebar Container -->
 
-
-
   <!-- content-wrapper  -->
   <div class="content-wrapper">
     <section class="content">
       <div class="container-fluid">
         <div class="row">
 
-          <div class="col-md-10 mx-auto p-3">
-            <div class="card">
-              <div class="card-body">
-                <table class="table" id="example1">
-                  <thead>
-                  <tr>
-                    <th scope="col">Product name</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col" class="text-center">
-                      Add To Cart
-                    </th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr th:each = "p: ${products}">
-                    <td th:text="${p.name}"></td>
-                    <td th:text="${p.price}"></td>
-                    <td th:text="${p.quantity}"></td>
-                    <td class="text-center">
-                      <a th:href="@{/cart/additem/{id}(id = ${p.id})}" class="btn btn-sm btn-info" >
-                        <i class="fas fa-cart-plus"> | Add</i>
-                      </a>
-                    </td>
-                  </tr>
-                  </tbody>
-                </table>
+          <div class="row mt-3 row-cols-1 row-cols-md-3">
+            <div th:each=" p : ${products}" class="col mb-4">
+              <div class="card h-100">
+                <img th:src="@{'/images/products/' + ${p.image}}" class="card-img-top p-2" height="300px" width="100%">
+                <div class="card-body">
+                  <h5 class="card-title" th:text="${p.name}"></h5>
+                  <p class="card-text">
+                    Band : <th:block th:text="${p.detail}"></th:block>
+                  </p>
+                  <p class="card-text">
+                    <a href="" class="btn btn btn-success form-control">
+                      <th:block th:text="${p.price}"></th:block>
+                    </a>
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -57,10 +44,8 @@
         </div>
       </div>
     </section>
-
   </div>
   <!-- content-wrapper  -->
-
 
 </div>
 
@@ -68,9 +53,7 @@
 
 <script>
   $(function () {
-    $("#example1").DataTable({
-
-    });
+    $("#example1").DataTable({});
   });
 </script>
 

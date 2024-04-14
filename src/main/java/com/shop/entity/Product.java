@@ -13,6 +13,7 @@ public class Product {
     private Double price;
     private String detail;
     private int quantity;
+    private String image;
 
     public Product() {
         super();
@@ -56,5 +57,13 @@ public class Product {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

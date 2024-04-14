@@ -28,7 +28,7 @@
                         <table class="table" id="example1">
                             <thead>
                             <tr>
-                                <th scope="col">Product ID</th>
+                                <th scope="col">Image</th>
                                 <th scope="col">Product name</th>
                                 <th scope="col">Price</th>
                                 <th scope="col">Quantity</th>
@@ -40,62 +40,65 @@
                             </thead>
                             <tbody>
                                 <tr th:each = "p: ${product}">
-                                    <td th:text="${p.id}"></td>
+                                    <td><img th:src="@{'/images/products/' + ${p.image}}" width="100" height="100"/></td>
                                     <td th:text="${p.name}"></td>
                                     <td th:text="${p.price}"></td>
                                     <td th:text="${p.quantity}"></td>
                                     <td th:text="${p.detail}"></td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" th:attr="data-target='#id' + ${p.id}">
+<!--                                        <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" th:attr="data-target='#id' + ${p.id}">-->
+<!--                                            <i class="far fa-edit"></i>-->
+<!--                                        </button>-->
+                                        <a th:href="@{/product/editproduct/{id}(id = ${p.id})}" class="btn btn-sm btn-warning">
                                             <i class="far fa-edit"></i>
-                                        </button>
+                                        </a>
                                         <a th:href="@{/product/deleteproduct/{id}(id = ${p.id})}" class="btn btn-sm btn-danger" onclick="return confirm('คุณต้องการลบรายการนี้ใช่หรือไม่')">
                                           <i class="fas fa-trash"></i>
                                         </a>
                                     </td>
 
                                     <!-- Modal -->
-                                    <div class="modal fade" th:id="'id' + ${p.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form th:action="@{/product/updateproduct}" method="POST" th:object="${product}">
-                                                        <div class="input-group mb-3">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">ชื่อสินค้า</span>
-                                                            </div>
-                                                            <input type="text" name="name" class="form-control" th:value="${p.name}">
-                                                        </div>
-                                                        <div class="input-group mb-3">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">ราคา</span>
-                                                            </div>
-                                                            <input type="number" step = "0.01" name="price" class="form-control" th:value="${p.price}">
-                                                        </div>
-                                                        <div class="input-group mb-3">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">รายละเอียดสินค้า</span>
-                                                            </div>
-                                                            <input type="text" name="detail" class="form-control" th:value="${p.detail}">
-                                                        </div>
-                                                        <div class="input-group mb-3">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">จำนวนสินค้า : </span>
-                                                            </div>
-                                                            <input type="number" name="quantity" class="form-control" th:value="${p.quantity}">
-                                                        </div>
-                                                        <input type="number" hidden="" name="id" class="form-control" th:value="${p.id}">
-                                                        <input type="submit" class="btn btn-sm btn-primary col-12" value="บันทึกข้อมูล">
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+<!--                                    <div class="modal fade" th:id="'id' + ${p.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--                                        <div class="modal-dialog">-->
+<!--                                            <div class="modal-content">-->
+<!--                                                <div class="modal-header">-->
+<!--                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                                                        <span aria-hidden="true">&times;</span>-->
+<!--                                                    </button>-->
+<!--                                                </div>-->
+<!--                                                <div class="modal-body">-->
+<!--                                                    <form th:action="@{/product/updateproduct}" method="POST" th:object="${product}">-->
+<!--                                                        <div class="input-group mb-3">-->
+<!--                                                            <div class="input-group-prepend">-->
+<!--                                                                <span class="input-group-text">ชื่อสินค้า</span>-->
+<!--                                                            </div>-->
+<!--                                                            <input type="text" name="name" class="form-control" th:value="${p.name}">-->
+<!--                                                        </div>-->
+<!--                                                        <div class="input-group mb-3">-->
+<!--                                                            <div class="input-group-prepend">-->
+<!--                                                                <span class="input-group-text">ราคา</span>-->
+<!--                                                            </div>-->
+<!--                                                            <input type="number" step = "0.01" name="price" class="form-control" th:value="${p.price}">-->
+<!--                                                        </div>-->
+<!--                                                        <div class="input-group mb-3">-->
+<!--                                                            <div class="input-group-prepend">-->
+<!--                                                                <span class="input-group-text">รายละเอียดสินค้า</span>-->
+<!--                                                            </div>-->
+<!--                                                            <input type="text" name="detail" class="form-control" th:value="${p.detail}">-->
+<!--                                                        </div>-->
+<!--                                                        <div class="input-group mb-3">-->
+<!--                                                            <div class="input-group-prepend">-->
+<!--                                                                <span class="input-group-text">จำนวนสินค้า : </span>-->
+<!--                                                            </div>-->
+<!--                                                            <input type="number" name="quantity" class="form-control" th:value="${p.quantity}">-->
+<!--                                                        </div>-->
+<!--                                                        <input type="number" hidden="" name="id" class="form-control" th:value="${p.id}">-->
+<!--                                                        <input type="submit" class="btn btn-sm btn-primary col-12" value="บันทึกข้อมูล">-->
+<!--                                                    </form>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
 
                                 </tr>
                             </tbody>

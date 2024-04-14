@@ -25,30 +25,39 @@
                       <h2> เพื่มสินค้า </h2>
                   </div>
                     <div class="card-body">
-                        <form th:action="@{/product/addProduct}" method="POST" th:object="${product}">
+                        <form th:action="@{/product/addProduct}" method="POST" enctype="multipart/form-data">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">ชื่อสินค้า</span>
+                                    <span class="input-group-text">Product name</span>
                                 </div>
-                                <input type="text" name="name" class="form-control" placeholder="ป้อนชื่อสินค้า">
+                                <input type="text" name="name" class="form-control">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">ราคา</span>
+                                    <span class="input-group-text">Price</span>
                                 </div>
                                 <input type="number" step = "0.01" name="price" class="form-control">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">รายละเอียดสินค้า</span>
+                                    <span class="input-group-text">Product detail</span>
                                 </div>
                                 <input type="text" name="detail" class="form-control">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">จำนวนสินค้า : </span>
+                                    <span class="input-group-text">Quantity</span>
                                 </div>
                                 <input type="number" name="quantity" class="form-control">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Upload Image</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" name="image" accept="image/*" class="custom-file-input">
+                                    <label class="custom-file-label">Choose file</label>
+                                </div>
                             </div>
                             <input type="submit" class="btn btn-sm btn-primary col-12" value="บันทึกข้อมูล">
                         </form>
