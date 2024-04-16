@@ -6,10 +6,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Instant;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import com.shop.entity.Product;
@@ -42,57 +42,50 @@ public class ProductController {
         return "redirect:/product";
     }
 
-    @PostMapping("/updateProduct")
+    @SuppressWarnings("unused")
+    @PostMapping("/updateproduct")
     public String updateProduct(@RequestParam int id,
-                                @ModelAttribute Product product ,
-                                Model model ,
-                                BindingResult result)  {
+                                @RequestParam("newImage") MultipartFile file,
+                                @RequestParam("image") String image,
+                                @RequestParam("name") String name ,
+                                @RequestParam("price") Double price ,
+                                @RequestParam("detail") String detail ,
+                                @RequestParam("quantity") int quantity
+    ) throws IOException {
+        Product product = new Product();
+        product.setId(id);
+        product.setName(name);
+        product.setPrice(price);
+        product.setDetail(detail);
+        product.setQuantity(quantity);
 
-        try {
-            Product p = service.getProductById(id);
-            model.addAttribute("p" , p);
+        if ( file !=null && !file.isEmpty()) {
+//            System.out.println("200");
+//            System.out.println(id);
 
-            if ( result.hasErrors()){
-                return "product";
-            }
+            service.deleteImageById(id);
 
-            if( ! p.getImage().isEmpty() ){
-                String folder = "src/main/resources/static/images/products/";
-                Path oldImage = Paths.get(folder + p.getImage());
-                try {
-                    Files.delete(oldImage);
-                }catch (Exception exception){
-                    System.out.println("Exception :" + exception.getMessage());
-                }
-
-                String micrometer = null;
-                String fileName = micrometer  + "_" + ".jpg";
-                Path path = Paths.get(folder + fileName);
-
-            }
+            long micrometer = java.time.Instant.now().toEpochMilli();
+            String folder = "src/main/resources/static/images/products/";
+            byte[] bytes = file.getBytes();
+            String fileName = micrometer  + "_" + ".jpg";
+            Path path = Paths.get(folder + fileName);
+            Files.write(path, bytes);
+            product.setImage(fileName);
+        } else {
+//            System.out.println(id);
+//            System.out.println(image);
+            product.setImage(image);
         }
-        catch (Exception exception){
-            System.out.println("Exception :" + exception.getMessage());
-        }
 
-//        long micrometer = java.time.Instant.now().toEpochMilli();
-//        String folder = "src/main/resources/static/images/products/";
-//        byte[] bytes = file.getBytes();
-//        String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-//        String fileName = micrometer  + "_" + ".jpg";
-//        Path path = Paths.get(folder + fileName);
-//        Files.write(path, bytes);
-//
-//        Product product =  new Product();
-//        product.setName(name);
-//        product.setPrice(price);
-//        product.setDetail(detail);
-//        product.setQuantity(quantity);
-//
-//        product.setImage(fileName);
-//        service.addProduct(product);
+        service.updateProduct(product);
+
+
+
         return "redirect:/product";
     }
+
+
 
     @GetMapping("/editproduct/{id}")
     public String editProduct(@PathVariable int id , Model model){
@@ -103,14 +96,6 @@ public class ProductController {
     }
 
 
-//    @PostMapping("/setEditProduct/{id}")
-//    public String setEditProduct(@PathVariable int id ,@RequestBody Product product, Model model){
-//        Product product = service.getProductById(id);
-//        model.addAttribute("product" , product);
-//        System.out.println(product);
-//        return "editproduct";
-//    }
-
     @GetMapping("/addproduct")
     public String addProduct(Model model){
         model.addAttribute("currentUrl", "/product");
@@ -118,12 +103,14 @@ public class ProductController {
     }
 
 
+    @SuppressWarnings("unused")
     @PostMapping("/addProduct")
     public String insertProduct( @RequestParam("image") MultipartFile file,
                                  @RequestParam("name") String name ,
                                  @RequestParam("price") Double price ,
                                  @RequestParam("detail") String detail ,
                                  @RequestParam("quantity") int quantity ) throws IOException {
+
         Product product =  new Product();
         product.setName(name);
         product.setPrice(price);
@@ -132,12 +119,11 @@ public class ProductController {
 
         Instant Instant = null;
 
-        long microtime = java.time.Instant.now().toEpochMilli();
+        long micrometer = java.time.Instant.now().toEpochMilli();
         
         String folder = "src/main/resources/static/images/products/";
         byte[] bytes = file.getBytes();
-//        String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-        String fileName = microtime  + "_" + ".jpg";
+        String fileName = micrometer  + "_" + ".jpg";
         Path path = Paths.get(folder + fileName);
         Files.write(path, bytes);
 

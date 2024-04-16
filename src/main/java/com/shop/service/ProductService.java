@@ -4,8 +4,8 @@ import com.shop.entity.Product;
 import com.shop.repository.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.*;
 import java.io.File;
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +32,7 @@ public class ProductService {
         return product.orElse(null);
     }
 
+    // ลบภาพสินค้า
     public void deleteImageById(Integer id) {
         Optional<Product> optionalImage = repo.findById(id);
         if (optionalImage.isPresent()) {
@@ -52,5 +53,11 @@ public class ProductService {
     // ลบสินค้า
     public void deleteById( int id){
         repo.deleteById(id);
+    }
+
+    // แก้ไขข้อมูลสินค้า
+
+    public Product updateProduct(Product product) {
+        return repo.save(product);
     }
 }

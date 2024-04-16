@@ -65,12 +65,17 @@
                                             <span class="input-group-text">Upload Image</span>
                                         </div>
                                         <div class="custom-file">
-                                            <input type="file" name="image" accept="image/*" class="custom-file-input">
-
+                                            <input type="file" name="newImage" accept="image/*" class="custom-file-input">
                                             <label class="custom-file-label">Choose file</label>
                                         </div>
                                     </div>
-                                    <input type="text" name="Old" th:value="${p.image}">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"> Old Image name</span>
+                                        </div>
+                                        <input type="text" hidden name="image"  th:value="${p.image}">
+                                        <input type="text"  class="form-control" th:value="${p.image}">
+                                    </div>
                                     <input type="submit" class="btn btn-sm btn-primary col-12" value="บันทึกข้อมูล">
                                 </form>
                             </div>
