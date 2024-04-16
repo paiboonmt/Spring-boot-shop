@@ -6,11 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Instant;
 import java.util.List;
-import java.util.UUID;
-
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,7 +16,6 @@ import com.shop.entity.Product;
 import com.shop.service.ProductService;
 import org.springframework.web.multipart.MultipartFile;
 
-import static java.lang.Math.random;
 
 @Controller
 @RequestMapping("/product")
@@ -80,8 +75,6 @@ public class ProductController {
             System.out.println("Exception :" + exception.getMessage());
         }
 
-
-
 //        long micrometer = java.time.Instant.now().toEpochMilli();
 //        String folder = "src/main/resources/static/images/products/";
 //        byte[] bytes = file.getBytes();
@@ -138,6 +131,7 @@ public class ProductController {
         product.setQuantity(quantity);
 
         Instant Instant = null;
+
         long microtime = java.time.Instant.now().toEpochMilli();
         
         String folder = "src/main/resources/static/images/products/";
