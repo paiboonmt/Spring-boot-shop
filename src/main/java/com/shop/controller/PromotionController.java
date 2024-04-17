@@ -8,6 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 @RequestMapping("/promotion")
@@ -33,6 +36,17 @@ public class PromotionController {
     @PostMapping("/addPromotion")
     public String addPromotion(@ModelAttribute Promotion promotion){
         System.out.println(promotion);
+        repo.save(promotion);
+        return "redirect:/promotion";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String getMethodName(@RequestParam int id) {
+        return null;
+    }
+
+    @PostMapping("/updatepromotion")
+    public String updatepromotion(@ModelAttribute Promotion promotion){
         repo.save(promotion);
         return "redirect:/promotion";
     }

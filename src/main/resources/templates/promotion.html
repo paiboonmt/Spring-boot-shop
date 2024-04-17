@@ -38,12 +38,53 @@
                                     <td th:text="${p.name}"></td>
                                     <td th:text="${p.price}"></td>
                                     <td class="text-center">
-                                        <a href="" class="btn btn-sm btn-warning">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                        <a href="" class="btn btn-sm btn-danger">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
+
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" th:attr="data-target='#id' + ${p.id}">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    
+                                    <!-- Modal -->
+                                    <div class="modal fade" th:id="'id' + ${p.id}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            </div>
+                                            <form th:action="@{/promotion/updatepromotion}" method="post">
+                                            <div class="modal-body">
+
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">Promotion id : </span>
+                                                        </div>
+                                                        <input type="text" name="id" class="form-control" th:value="${p.id}">
+                                                    </div>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">Promotion Name : </span>
+                                                        </div>
+                                                        <input type="text" class="form-control" name="name" th:value="${p.name}">
+                                                    </div>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">Price : </span>
+                                                        </div>
+                                                        <input type="number" class="form-control" step="00.01" name="price" th:value="${p.price}">
+                                                    </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Enter</button>
+                                            </div>
+                                            </form>
+                                        </div>
+                                        </div>
+                                    </div>
+                                        <a href="" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                             </tbody>

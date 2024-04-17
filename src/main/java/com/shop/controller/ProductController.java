@@ -24,7 +24,6 @@ public class ProductController {
     @Autowired
     private ProductService service;
 
-//    http://localhost:1010/product
     @GetMapping
     public String product( Model model){
         List<Product> products = service.allProduct();
@@ -42,7 +41,6 @@ public class ProductController {
         return "redirect:/product";
     }
 
-    @SuppressWarnings("unused")
     @PostMapping("/updateproduct")
     public String updateProduct(@RequestParam int id,
                                 @RequestParam("newImage") MultipartFile file,
@@ -85,8 +83,6 @@ public class ProductController {
         return "redirect:/product";
     }
 
-
-
     @GetMapping("/editproduct/{id}")
     public String editProduct(@PathVariable int id , Model model){
         Product product = service.getProductById(id);
@@ -95,13 +91,11 @@ public class ProductController {
         return "editproduct";
     }
 
-
     @GetMapping("/addproduct")
     public String addProduct(Model model){
         model.addAttribute("currentUrl", "/product");
         return "addproduct";
     }
-
 
     @SuppressWarnings("unused")
     @PostMapping("/addProduct")

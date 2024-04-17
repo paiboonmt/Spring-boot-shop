@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="/images/logo.png">
+    <title>Product Page | TNN SHOP</title>
+    <div th:replace="/fragments/header :: header"></div>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Main Sidebar Container -->
+    <div th:replace="/fragments/aside :: aside"></div>
+
+  <div class="content-wrapper">
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card p-2 mt-2">
+                    <div class="card-header">
+                        <a class="btn btn-primary"  th:href="@{/product/addproduct}" >Add Product</a>
+                    </div>
+                    <div class="card-body">
+                        <table class="table" id="example1">
+                            <thead>
+                            <tr>
+                                <th scope="col">Image</th>
+                                <th scope="col">Product name</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col" class="text-center">
+                                    Action
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+</div>
+
+<div th:replace="/fragments/footer :: footer"></div>
+
+<script>
+    $(function () {
+        $("#example1").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": true,
+            "buttons": ["excel"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });
+</script>
+
+
+<div th:if="${session.msg}">
+    <script>
+        Swal.fire({
+            title: "Good job!",
+            text: "Update Product Successfully",
+            icon: "success"
+        });
+    </script>
+</div>
+
+
+</body>
+</html>
