@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="/images/logo.png">
+    <title>Product Page | TNN SHOP</title>
+    <div th:replace="/fragments/header :: header"></div>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Main Sidebar Container -->
+    <div th:replace="/fragments/aside :: aside"></div>
+
+  <div class="content-wrapper">
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <div class="card p-3 mt-3">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Order Id</th>
+                            <th>Product name</th>
+                            <th>Quantity</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each=" p : ${orderList} " >
+                            <td th:text="${p.orderId}"></td>
+                            <td th:text="${p.productName}"></td>
+                            <td th:text="${p.quantity}"></td>
+                            <td th:text="${p.price}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+</div>
+
+<div th:replace="/fragments/footer :: footer"></div>
+
+</body>
+</html>

@@ -53,6 +53,14 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="/list" th:class="${currentUrl == '/list' ? 'nav-link active' : 'nav-link'}">
+                            <i class="nav-icon fas fa-theater-masks"></i>
+                            <p>
+                                Sale List
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="/report" th:class="${currentUrl == '/report' ? 'nav-link active' : 'nav-link'}">
                             <i class="nav-icon fas fa-print"></i>
                             <p>

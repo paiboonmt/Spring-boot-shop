@@ -2,6 +2,8 @@ package com.shop.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "product")
 public class Product {
@@ -14,6 +16,7 @@ public class Product {
     private String detail;
     private int quantity;
     private String image;
+
 
     public Product() {
         super();

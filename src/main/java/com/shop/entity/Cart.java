@@ -2,6 +2,8 @@ package com.shop.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "cart")
 public class Cart {
@@ -10,12 +12,21 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cartId;
     private Integer productId;
+    private String productName;
     private Integer quantity;
     private Double price;
     private Integer userrole;
 
     public Cart() {
         super();
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public Integer getCartId() {
@@ -61,9 +72,11 @@ public class Cart {
     public Cart(Integer cartId, Integer productId, Integer quantity, Double price, Integer userrole) {
         this.cartId = cartId;
         this.productId = productId;
+        this.productName = productName;
         this.quantity = quantity;
         this.price = price;
         this.userrole = userrole;
+
     }
 
     @Override
@@ -71,9 +84,11 @@ public class Cart {
         return "Cart{" +
                 "cartId=" + cartId +
                 ", productId=" + productId +
+                ", productName='" + productName + '\'' +
                 ", quantity=" + quantity +
                 ", price=" + price +
                 ", userrole=" + userrole +
+
                 '}';
     }
 

@@ -27,10 +27,13 @@ public class CartService {
         return repo.save(cart);
     }
 
-    public void delete(Cart cart) {
-        repo.delete(cart);
+    public void delete(int id) {
+        repo.deleteById(id);
     }
 
 
+    public void deleteByUserrole(int id) {
+        repo.deleteByUserrole(id);
+    }
 
 }

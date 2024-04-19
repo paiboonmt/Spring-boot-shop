@@ -7,6 +7,7 @@
     <title>TNN SHOP</title>
 
     <div th:replace="/fragments/header :: header"></div>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -21,26 +22,68 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
+          <div class="col-md-7">
+            <div class="row mt-3 row-cols-1 row-cols-md-3">
+              <div th:each=" p : ${products}" class="col mb-3">
+                <div class="card h-100">
+                  <img th:src="@{'/images/products/' + ${p.image}}" class="card-img-top p-2" height="150px" width="100%">
+                  <div class="card-body">
+                    <h5 class="card-title" th:text="${p.name}"></h5>
+                    <p class="card-text">
 
-          <div class="row mt-3 row-cols-1 row-cols-md-3">
-            <div th:each=" p : ${products}" class="col mb-3">
-              <div class="card h-100">
-                <img th:src="@{'/images/products/' + ${p.image}}" class="card-img-top p-2" height="150px" width="100%">
-                <div class="card-body">
-                  <h5 class="card-title" th:text="${p.name}"></h5>
-                  <p class="card-text">
-                    Band : <th:block th:text="${p.detail}"></th:block>
-                  </p>
-                  <p class="card-text">
-                    <a href="" class="btn btn btn-success form-control">
-                      <th:block th:text="${p.price}"></th:block>
-                    </a>
-                  </p>
+                    <hr>
+                      Price : <th:block th:text="${p.price}"></th:block>
+                    </p>
+                    <p class="card-text">
+                      <form th:action="@{/cart/add}" method="post">
+                          <input type="text" hidden="hidden" name="productId" class="form-control" th:value="${p.id}">
+                          <input type="text" hidden="hidden" name="productName" class="form-control" th:value="${p.name}">
+                          <input type="number"  name="quantity" class="col-sm-6 form-control mx-auto mb-3"  th:value="1">
+                          <input type="number" hidden="hidden" step="00.01" name="price" class="form-control" th:value="${p.price}">
+                          <input type="text" hidden="hidden" name="userrole" class="form-control" th:value="1">
+                          <input type="submit" class="btn btn-sm btn-danger form-control" value="Add cart">
+                      </form>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          <div class="col">
+            <div class="card mt-3">
+              <table class="table">
+                <thead>
+                    <tr>
+                      <th>Product</th>
+                      <th>Qty</th>
+                      <th>Price</th>
+                      <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr th:each=" c : ${cart}">
+                    <td th:text="${c.productName}"></td>
+                    <td th:text="${c.quantity}"></td>
+                    <td th:text="${c.price}"></td>
+                    <td>
+                      <a th:href="@{/cart/delete/{id}(id = ${c.cartId})}" class="btn btn-sm btn-danger">
+                        <i class="fas fa-trash"></i>
+                      </a>
+                    </td>
+                  </tr>
+                <tr>
+                    <td colspan="4"></td>
 
+                </tr>
+                <tr>
+                 <td colspan="4">
+                   <a th:href="@{/cart/cart}" class="btn btn-success form-control"> Check Out </a>
+                 </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </section>

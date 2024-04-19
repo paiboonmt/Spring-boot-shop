@@ -20,23 +20,53 @@
             <div class="col-md-12">
                 <div class="card p-2 mt-2">
                     <div class="card-header">
-                        <a class="btn btn-primary"  th:href="@{/product/addproduct}" >Add Product</a>
+
+                        <h1> Order Id </h1>
+                        <p th:text="${codeNumber}"></p>
                     </div>
                     <div class="card-body">
-                        <table class="table" id="example1">
+                        <table class="table">
                             <thead>
                             <tr>
-                                <th scope="col">Image</th>
                                 <th scope="col">Product name</th>
-                                <th scope="col">Price</th>
                                 <th scope="col">Quantity</th>
+                                <th scope="col">Price</th>
                                 <th scope="col" class="text-center">
                                     Action
                                 </th>
                             </tr>
                             </thead>
                             <tbody>
+                                <form th:action="@{/order/add}" method="post" th:object="${order}">
+                                    <tr th:each=" c : ${cartList}">
+                                        <td th:text="${c.productName}"></td>
+                                        <td th:text="${c.quantity}"></td>
+                                        <td th:text="${c.price}"></td>
+                                        <td class="text-center">
+                                            <a href="" class="btn btn-sm btn-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </td>
+                                        <input type="text" hidden="hidden" name="id" th:value="${c.cartId}">
+                                        <input type="text" hidden="hidden" name="orderId" th:value="${codeNumber}">
+                                        <input type="text" hidden="hidden" name="productId" th:value="${c.productId}">
+                                        <input type="text" hidden="hidden" name="productName"  th:value="${c.productName}">
+                                        <input type="text" hidden="hidden" name="quantity"  th:value="${c.quantity}">
+                                        <input type="text" hidden="hidden" name="price"  th:value="${c.price}">
+                                        <input type="text" hidden="hidden" name="status"  th:value="1">
+                                        <input type="text" hidden="hidden" name="userId" th:value="1">
+                                    </tr>
 
+                                    <tr>
+                                        <td colspan="4"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <input type="submit" class="btn btn-success form-control" value="CHECK OUT ">
+                                        </td>
+                                    </tr>
+                                </form>
                             </tbody>
                         </table>
                     </div>
@@ -52,34 +82,15 @@
 
 <div th:replace="/fragments/footer :: footer"></div>
 
-<script>
-    $(function () {
-        $("#example1").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": true,
-            "buttons": ["excel"]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-        });
-    });
-</script>
-
-
-<div th:if="${session.msg}">
-    <script>
-        Swal.fire({
-            title: "Good job!",
-            text: "Update Product Successfully",
-            icon: "success"
-        });
-    </script>
-</div>
+<!--<div th:if="${session.msg}">-->
+<!--    <script>-->
+<!--        Swal.fire({-->
+<!--            title: "Good job!",-->
+<!--            text: "Update Product Successfully",-->
+<!--            icon: "success"-->
+<!--        });-->
+<!--    </script>-->
+<!--</div>-->
 
 
 </body>
