@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +28,7 @@ public class ProductService {
     }
 
     // ค้นหาสินค้าด้วย ไอดี
-    public Product getProductById( int id){
+    public Product getProductById(int id){
         Optional<Product> product = repo.findById(id);
         return product.orElse(null);
     }

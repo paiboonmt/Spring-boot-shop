@@ -1,12 +1,10 @@
 package com.shop.controller;
 
-import com.shop.entity.Cart;
 import com.shop.entity.Order;
 import com.shop.entity.Product;
-import com.shop.service.CartService;
+import com.shop.service.ItemService;
 import com.shop.service.OrderService;
 import com.shop.service.ProductService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,10 +19,10 @@ public class MainController {
     private ProductService service;
 
     @Autowired
-    private CartService cartService;
+    private OrderService orderService;
 
     @Autowired
-    private OrderService orderService;
+    ItemService itemService;
 
 
     @GetMapping("/")
@@ -34,11 +32,10 @@ public class MainController {
 
     @GetMapping("/home")
     public String home(Model model ){
+        model.addAttribute("currentUrl", "/home");
         List<Product> product = service.allProduct();
         model.addAttribute("products" , product);
-        List<Cart> cartList = cartService.findAll();
-        model.addAttribute("cart", cartList);
-        model.addAttribute("currentUrl", "/home");
+        model.addAttribute("cart" , itemService.getItemList());
         return "index";
     }
 
@@ -48,18 +45,19 @@ public class MainController {
         return "report";
     }
 
-    @GetMapping("/list")
-    public String list(Model model) {
-        List<Order> orderList = orderService.findAll();
-        model.addAttribute("orderList" , orderList);
-        model.addAttribute("currentUrl", "/list");
-        return "list";
-
-    }
-
+//    @GetMapping("/list")
+//    public String list(Model model) {
+//        List<Order> orderList = orderService.findAll();
+//        model.addAttribute("orderList" , orderList);
+//        model.addAttribute("currentUrl", "/list");
+//        return "list";
+//
+//    }
 
     @GetMapping("/logout")
     public String logout(){
         return "login";
     }
+
+
 }

@@ -1,111 +1,70 @@
 package com.shop.entity;
 
 import jakarta.persistence.*;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Entity
-@Table(name = "orderItem")
+@Table(name = "cartorder")
 public class Order {
 
     @Id
-    @GeneratedValue
-    private int cartId;
-    private String orderId;
-    private int productId;
-    private String productName;
-    private int quantity;
-    private double price;
-    private int userId;
-    private int status;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String tex;
+    private String date;
+    private String totalPrice;
 
     public Order() {
         super();
     }
 
-    public Order(String orderId, int productId, String productName, int quantity, double price, int userId, int status) {
-        this.orderId = orderId;
-        this.productId = productId;
-        this.productName = productName;
-        this.quantity = quantity;
-        this.price = price;
-        this.userId = userId;
-        this.status = status;
-    }
-
-    public int getCartId() {
-        return cartId;
-    }
-
-    public void setCartId(int cartId) {
-        this.cartId = cartId;
-    }
-
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
-
-    public int getProductId() {
-        return productId;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
+    public Order(String tex, String date,  String totalPrice, int id) {
+        this.tex = tex;
+        this.date = date;
+        this.totalPrice = totalPrice;
+        this.id = id;
     }
 
     @Override
     public String toString() {
         return "Order{" +
-                "cartId=" + cartId +
-                ", orderId='" + orderId + '\'' +
-                ", productId=" + productId +
-                ", productName='" + productName + '\'' +
-                ", quantity=" + quantity +
-                ", price=" + price +
-                ", userId=" + userId +
-                ", status=" + status +
+                "id=" + id +
+                ", tex=" + tex +
+                ", date='" + date + '\'' +
+                ", totalPrice='" + totalPrice + '\'' +
                 '}';
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTex() {
+        return tex;
+    }
+
+    public void setTex(String tex) {
+        this.tex = tex;
+    }
+
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(String totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

@@ -85,7 +85,7 @@ public class ProductController {
 
     @GetMapping("/editproduct/{id}")
     public String editProduct(@PathVariable int id , Model model){
-        Product product = service.getProductById(id);
+        Product product = (Product) service.getProductById(id);
         model.addAttribute("currentUrl", "/product");
         model.addAttribute("products", product);
         return "editproduct";

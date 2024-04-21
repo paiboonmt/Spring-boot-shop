@@ -34,15 +34,7 @@
                     <hr>
                       Price : <th:block th:text="${p.price}"></th:block>
                     </p>
-                    <p class="card-text">
-                      <form th:action="@{/cart/add}" method="post">
-                          <input type="text" hidden="hidden" name="productId" class="form-control" th:value="${p.id}">
-                          <input type="text" hidden="hidden" name="productName" class="form-control" th:value="${p.name}">
-                          <input type="number"  name="quantity" class="col-sm-6 form-control mx-auto mb-3"  th:value="1">
-                          <input type="number" hidden="hidden" step="00.01" name="price" class="form-control" th:value="${p.price}">
-                          <input type="text" hidden="hidden" name="userrole" class="form-control" th:value="1">
-                          <input type="submit" class="btn btn-sm btn-danger form-control" value="Add cart">
-                      </form>
+                    <a th:href="@{/addToCart/{id}(id = ${p.id})}" class="btn btn-outline-info form-control"> Add to cart</a>
                     </p>
                   </div>
                 </div>
@@ -51,37 +43,28 @@
           </div>
           <div class="col">
             <div class="card mt-3">
-              <table class="table">
-                <thead>
+              <div class="card-header">
+                <a th:href="@{/clear/cart}" class="btn btn-outline-warning form-control"> Clear Cart</a>
+              </div>
+                <div class="card-body">
+                  <table class="table">
+                    <thead>
                     <tr>
-                      <th>Product</th>
+                      <th>name</th>
                       <th>Qty</th>
-                      <th>Price</th>
-                      <th>Action</th>
+                      <th>price</th>
                     </tr>
-                </thead>
-                <tbody>
-                  <tr th:each=" c : ${cart}">
-                    <td th:text="${c.productName}"></td>
-                    <td th:text="${c.quantity}"></td>
-                    <td th:text="${c.price}"></td>
-                    <td>
-                      <a th:href="@{/cart/delete/{id}(id = ${c.cartId})}" class="btn btn-sm btn-danger">
-                        <i class="fas fa-trash"></i>
-                      </a>
-                    </td>
-                  </tr>
-                <tr>
-                    <td colspan="4"></td>
-
-                </tr>
-                <tr>
-                 <td colspan="4">
-                   <a th:href="@{/cart/cart}" class="btn btn-success form-control"> Check Out </a>
-                 </td>
-                </tr>
-                </tbody>
-              </table>
+                    </thead>
+                    <tr th:each=" c : ${cart}">
+                      <td th:text="${c.name}"></td>
+                      <td th:text="${c.quantity}"></td>
+                      <td th:text="${c.price}"></td>
+                    </tr>
+                  </table>
+                </div>
+              <div class="card-footer">
+                <a th:href="@{/checkout}" class="btn btn-outline-success form-control"> Check Out</a>
+              </div>
             </div>
           </div>
         </div>

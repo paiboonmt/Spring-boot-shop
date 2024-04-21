@@ -17,25 +17,33 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-            <div class="card p-3 mt-3">
-                <table class="table">
-                    <thead>
+            <div class="col">
+                <div class="card p-3 mt-3">
+                    <table class="table">
+                        <thead>
                         <tr>
                             <th>Order Id</th>
-                            <th>Product name</th>
-                            <th>Quantity</th>
+                            <th>Date</th>
+                            <th>Tex Invoice</th>
                             <th>Total Price</th>
+                            <th>
+                                Action
+                            </th>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each=" p : ${orderList} " >
-                            <td th:text="${p.orderId}"></td>
-                            <td th:text="${p.productName}"></td>
-                            <td th:text="${p.quantity}"></td>
-                            <td th:text="${p.price}"></td>
+                        </thead>
+                        <tbody>
+                        <tr th:each=" p : ${orders} " >
+                            <td th:text="${p.id}"></td>
+                            <td th:text="${p.date}"></td>
+                            <td th:text="${p.tex}"></td>
+                            <td th:text="${p.totalPrice}"></td>
+                            <td>
+                                <a href="" class="btn btn-info">View</a>
+                            </td>
                         </tr>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
       </div>
