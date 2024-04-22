@@ -1,6 +1,5 @@
 package com.shop.controller;
 
-import com.shop.entity.Cart;
 import com.shop.entity.Order;
 import com.shop.entity.OrderDetail;
 import com.shop.entity.Product;
@@ -14,9 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/checkout")

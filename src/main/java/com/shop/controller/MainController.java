@@ -2,9 +2,12 @@ package com.shop.controller;
 
 import com.shop.entity.Order;
 import com.shop.entity.Product;
+import com.shop.entity.User;
+import com.shop.repository.UserRepository;
 import com.shop.service.ItemService;
 import com.shop.service.OrderService;
 import com.shop.service.ProductService;
+import com.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,10 +22,12 @@ public class MainController {
     private ProductService service;
 
     @Autowired
-    private OrderService orderService;
+    private UserRepository userRepo;
 
     @Autowired
     ItemService itemService;
+
+
 
 
     @GetMapping("/")
@@ -32,6 +37,13 @@ public class MainController {
 
     @GetMapping("/home")
     public String home(Model model ){
+
+        List<User> user = userRepo.findAll();
+
+        if ( user.get(0).getRole() != 1 ) {
+            return "login";
+        }
+
         model.addAttribute("currentUrl", "/home");
         List<Product> product = service.allProduct();
         model.addAttribute("products" , product);
