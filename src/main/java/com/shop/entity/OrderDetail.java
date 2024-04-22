@@ -9,20 +9,20 @@ public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String textId;
+    private String tex;
     private int productId;
-    private String productName;
-    private String price;
-    private String quantity;
+    private String product;
+    private Double price;
+    private int quantity;
 
     public OrderDetail() {
         super();
     }
 
-    public OrderDetail(String textId, int productId, String productName, String price, String quantity) {
-        this.textId = textId;
+    public OrderDetail(String  textId, int productId, String product, Double price, int quantity) {
+        this.tex = textId;
         this.productId = productId;
-        this.productName = productName;
+        this.product = product;
         this.price = price;
         this.quantity = quantity;
     }
@@ -31,9 +31,9 @@ public class OrderDetail {
     public String toString() {
         return "OrderDetail{" +
                 "id=" + id +
-                ", textId='" + textId + '\'' +
+                ", textId=" + tex +
                 ", productId=" + productId +
-                ", productName='" + productName + '\'' +
+                ", product='" + product + '\'' +
                 ", price=" + price +
                 ", quantity=" + quantity +
                 '}';
@@ -47,12 +47,12 @@ public class OrderDetail {
         this.id = id;
     }
 
-    public String getTextId() {
-        return textId;
+    public String getTex() {
+        return tex;
     }
 
-    public void setTextId(String textId) {
-        this.textId = textId;
+    public void setTex(String tex) {
+        this.tex = tex;
     }
 
     public int getProductId() {
@@ -63,27 +63,35 @@ public class OrderDetail {
         this.productId = productId;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getProduct() {
+        return product;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setProduct(String product) {
+        this.product = product;
     }
 
-    public String getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public void setTextId(String tex) {
+        this.tex = tex;
+    }
+
+    public void getPrice(Double price) {
+        this.price = price;
     }
 }

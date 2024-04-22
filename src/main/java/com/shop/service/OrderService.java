@@ -17,12 +17,10 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-
     public Order findById(int id) {
         Optional<Order> order = orderRepository.findById(id);
         return order.orElse(null);
     }
-
 
     public List<Order> findAll() {
         return orderRepository.findAll();
@@ -31,7 +29,6 @@ public class OrderService {
     public void delete(int id) {
         orderRepository.deleteById(id);
     }
-
 
     public void count(){
         orderRepository.count();

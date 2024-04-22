@@ -1,7 +1,6 @@
 package com.shop.entity;
 
 import jakarta.persistence.*;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Entity
 @Table(name = "cartorder")
@@ -50,7 +49,6 @@ public class Order {
     public void setTex(String tex) {
         this.tex = tex;
     }
-
 
     public String getDate() {
         return date;

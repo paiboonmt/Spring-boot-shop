@@ -73,67 +73,58 @@ public class checkoutController {
         return "invoice-print";
     }
 
+    @PostMapping("/invoice")
+    public String checkoutInvoice(
+            @RequestParam("id") int id,
+            @RequestParam("tex") String tex , Model model) {
+
+        Order order = orderService.findById(id);
+        model.addAttribute("order", order);
+
+        List<OrderDetail> orderDetail = orderDetailService.findByTextId(tex);
+        model.addAttribute("item", orderDetail);
+
+        DecimalFormat df = new DecimalFormat("#.00");
+
+        Double totalPrice = 0d;
+        totalPrice = Double.valueOf(order.getTotalPrice());
+        model.addAttribute("totalPrice", totalPrice);
+
+        System.out.println(totalPrice);
+
+        Double subTotal = 0d;
+        subTotal = Double.valueOf(df.format((totalPrice * 100) / 107));
+        Double vat7 = Double.valueOf(df.format((subTotal * 7) / 100));
+        model.addAttribute("subTotal", subTotal);
+        model.addAttribute("vat", vat7);
+
+        return "invoice";
+    }
+
+
     @PostMapping("/finish")
     public String finish(
-            @RequestParam("tex") String tex,
-            @RequestParam("id") int productid,
-            @RequestParam("date") String date,
-            @RequestParam("name") String product ,
-            @RequestParam("detail") String detail ,
-            @RequestParam("price") String price,
-            @RequestParam("quantity") String quantity,
-            @RequestParam("totalPrice") String totalPrice,
-            @ModelAttribute Product productww
+                        @RequestParam("tex") String tex,
+                        @RequestParam("id") int productid,
+                        @RequestParam("date") String date,
+                        @RequestParam("name") String product ,
+                        @RequestParam("detail") String detail ,
+                        @RequestParam("price") Double price,
+                        @RequestParam("quantity") int quantity,
+                        @RequestParam("totalPrice") Double totalPrice ) {
 
-    ) {
+        Order order = new Order();
+        order.setDate(date);
+        order.setTex(String.valueOf(tex));
+        order.setDate(date);
+        order.setTotalPrice(String.valueOf(totalPrice));
+        orderService.save(order);
 
-
-//        System.out.println(productww);
-//        Order order = new Order();
-//        order.setDate(date);
-//        order.setTex(tex);
-//        order.setDate(date);
-//        order.setTotalPrice(totalPrice);
-//        orderService.save(order);
+        List<Product> item = itemService.getItemList();
 
 
-            for ( Product ss : itemService.getItemList()){
-                if ( ss.getName().equals(productww.getName())){
-                    System.out.println(productid);
-                    System.out.println(ss.getId());
-                }
-                System.out.println(productid);
-                System.out.println(ss.getId());
+        orderDetailService.importData(item,tex);
 
-            }
-
-//       for (int i = 0; i < itemService.getItemList().size(); i++) {
-//            OrderDetail o = new OrderDetail();
-//            o.setProductId(productid);
-//            o.setQuantity(quantity);
-//            o.setTextId(tex);
-//            o.setPrice(price);
-//            o.setProductName(product);
-//            orderDetailService.save(o);
-//       }
-
-//        OrderDetail o = new OrderDetail();
-//        o.setProductId(productid);
-//        o.setQuantity(quantity);
-//        o.setTextId(tex);
-//        o.setPrice(price);
-//        o.setProductName(product);
-
-//        for (Product p : itemService.getItemList()) {
-//            boolean found = false;
-//            if ( p.getId() != productid ) {
-//                orderDetailService.save(o);
-//                found = true;
-//            }
-//            if (!found) {
-//                break;
-//            }
-//        }
 
         itemService.clearItemList();
         return "redirect:/home";
