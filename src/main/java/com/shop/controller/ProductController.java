@@ -112,13 +112,14 @@ public class ProductController {
         product.setQuantity(quantity);
 
         Instant Instant = null;
-
         long micrometer = java.time.Instant.now().toEpochMilli();
         
         String folder = "src/main/resources/static/images/products/";
         byte[] bytes = file.getBytes();
+
         String fileName = micrometer  + "_" + ".jpg";
         Path path = Paths.get(folder + fileName);
+
         Files.write(path, bytes);
 
         product.setImage(fileName);

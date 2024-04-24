@@ -43,10 +43,10 @@
                     From
                     <address>
                       <strong>TNN SHOPPING, Inc.</strong><br>
-                      Tum and Nong Kee Company<br>
+                      Tum and Nonggy Company<br>
                       Thailand Phuket <br>
                       Phone: (095) 2566-xxxx<br>
-                      Email: tumandnongy@tnnshopping.com
+                      Email: tum&nonggy@tnnshopping.com
                     </address>
                   </div>
 
@@ -70,7 +70,7 @@
                           <tr th:each=" o : ${item} ">
                               <td th:text="${o.quantity}"></td>
                               <td th:text="${o.product}"></td>
-                              <td> - </td>
+                              <td th:text="${o.product}"></td>
                               <td th:text="${o.price}"></td>
                           </tr>
                       </tbody>
@@ -119,8 +119,8 @@
 
                 <div class="row no-print">
                   <div class="col-12">
-                    <a th:href="@{/checkout/invoice-print}" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
-
+<!--                    <a th:href="@{/checkout/invoice-print}" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>-->
+                    <button class="btn btn-default" onclick="print();" ><i class="fas fa-print"></i></button>
                   </div>
                 </div>
               </div>
@@ -134,6 +134,10 @@
   </div>
 </div>
 <div th:replace="/fragments/footer :: footer"></div>
+
+<script>
+  window.addEventListener("load", window.print());
+</script>
 </body>
 </html>
 

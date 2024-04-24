@@ -6,6 +6,7 @@ import com.shop.entity.Product;
 import com.shop.service.ItemService;
 import com.shop.service.OrderDetailService;
 import com.shop.service.OrderService;
+import com.shop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +28,8 @@ public class checkoutController {
 
     @Autowired
     OrderDetailService orderDetailService;
+    @Autowired
+    private ProductService productService;
 
     @GetMapping
     public String checkout(Model model) {
@@ -65,8 +68,29 @@ public class checkoutController {
         return "checkout";
     }
 
-    @GetMapping("/invoice-print")
-    public String invoicePrint(Model model) {
+    @PostMapping("/invoice-print")
+    public String invoicePrint(@RequestParam("id") int id,
+                               @RequestParam("tex") String tex , Model model) {
+
+        Order order = orderService.findById(id);
+        model.addAttribute("order", order);
+
+        List<OrderDetail> orderDetail = orderDetailService.findByTextId(tex);
+        model.addAttribute("item", orderDetail);
+
+        DecimalFormat df = new DecimalFormat("#.00");
+
+        Double totalPrice = 0d;
+        totalPrice = Double.valueOf(order.getTotalPrice());
+        model.addAttribute("totalPrice", totalPrice);
+
+        System.out.println(totalPrice);
+
+        Double subTotal = 0d;
+        subTotal = Double.valueOf(df.format((totalPrice * 100) / 107));
+        Double vat7 = Double.valueOf(df.format((subTotal * 7) / 100));
+        model.addAttribute("subTotal", subTotal);
+        model.addAttribute("vat", vat7);
         return "invoice-print";
     }
 
@@ -87,7 +111,7 @@ public class checkoutController {
         totalPrice = Double.valueOf(order.getTotalPrice());
         model.addAttribute("totalPrice", totalPrice);
 
-        System.out.println(totalPrice);
+//        System.out.println(totalPrice);
 
         Double subTotal = 0d;
         subTotal = Double.valueOf(df.format((totalPrice * 100) / 107));
@@ -118,11 +142,7 @@ public class checkoutController {
         orderService.save(order);
 
         List<Product> item = itemService.getItemList();
-
-
         orderDetailService.importData(item,tex);
-
-
         itemService.clearItemList();
         return "redirect:/home";
     }

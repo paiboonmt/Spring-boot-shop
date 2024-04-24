@@ -43,7 +43,6 @@
                             <td th:text="${p.tex}"></td>
                             <td th:text="${p.totalPrice}"></td>
                             <td>
-<!--                                <a th:href="@{/checkout/invoice/{id}(id = ${p.id})}" class="btn btn-info">View</a>-->
                                 <form th:action="@{/checkout/invoice}" method="post" th:object="${orederdetail}">
                                     <input type="text" hidden name="id" th:value="${p.id}">
                                     <input type="text" hidden name="tex" th:value="${p.tex}">

@@ -27,9 +27,12 @@
                   <div class="col-12">
                     <h4>
                       <i class="fas fa-globe"></i> TNN SHOPPING , Thailand Phuket
-                      <small class="float-right">Date: <th:block th:text="${date}"></th:block></small>
+                      <small class="float-right">Date: <th:block th:text="${date}"></th:block>
+                      <br>
+                      Tex: <th:block th:text="${coexistence}"></th:block>
+                      </small>
                       <input type="text" name="date" hidden="hidden" th:value="${date}">
-                      <input type="text" name="tex" th:value="${coexistence}">
+                      <input type="text" name="tex"  hidden="hidden" th:value="${coexistence}">
                     </h4>
                   </div>
 
@@ -87,6 +90,9 @@
 
                   <div class="col-6">
                     <p class="lead">Payment Methods:</p>
+                    <div th:if="${totalPrice} >= 1000 ">
+                      <p>Ok</p>
+                    </div>
                     <img src="../../dist/img/credit/visa.png" alt="Visa">
                     <img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
                     <img src="../../dist/img/credit/american-express.png" alt="American Express">
@@ -96,6 +102,7 @@
                       plugg
                       dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
                     </p>
+
                   </div>
 
                   <div class="col-6">
@@ -118,18 +125,16 @@
                         </tbody></table>
                     </div>
                   </div>
-
                 </div>
-
-
                 <div class="row no-print">
                   <div class="col-12">
-                    <a th:href="@{/checkout/invoice-print}" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
-                    <input type="submit" class="btn btn-success float-right" th:value="Submit">
+<!--                    <a th:href="@{/checkout/invoice-print}" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>-->
+                   <div class="float-right">
+                     <input type="submit" class="btn btn-success float-right" th:value="Submit">
+                   </div>
                   </div>
                 </div>
               </div>
-
             </div>
           </form>
         </div>
